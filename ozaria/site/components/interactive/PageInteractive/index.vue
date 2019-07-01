@@ -27,13 +27,6 @@
       }
     },
 
-    data: () => ({
-      loading: false,
-      interactive: {},
-      interactiveSession: {},
-      interactiveType: ''
-    }),
-
     computed: {
       ...mapGetters('interactives', [
         'currentInteractiveDataLoading',
@@ -111,7 +104,6 @@
       },
 
       async getInteractiveData () {
-        this.loading = true
         try {
           const interactivePromise = this.loadInteractive(this.interactiveIdOrSlug)
           const interactiveSessionPromise = this.loadInteractiveSession({

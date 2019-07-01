@@ -69,7 +69,7 @@ export default {
 
       try {
         const interactiveSession = await getSession(interactiveIdOrSlug, sessionOptions)
-
+        console.log('GOT INTERACTIVE', interactiveSession)
         if (!interactiveSession) {
           throw new Error('Invalid interactive session received')
         }
