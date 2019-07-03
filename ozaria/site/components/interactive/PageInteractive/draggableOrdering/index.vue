@@ -36,10 +36,22 @@
         draggableGroup: Math.random().toString(),
 
         promptSlots: (this.localizedInteractiveConfig.elements || [])
-          .map(({ elementId, text }) => ({
-            id: elementId,
-            text
+          .map(({ elementId, ...rest }) => ({
+            ...rest,
+            id: elementId
           }))
+      }
+    },
+
+    computed: {
+      labels () {
+        return (this.localizedInteractiveConfig.labels || []).map((label) => {
+          if (typeof label === 'string') {
+            return { text: label }
+          }
+
+          return label
+        })
       }
     }
   }
@@ -63,7 +75,7 @@
         <li
           v-for="prompt in promptSlots"
           :key="prompt.id"
-          class="prompt"
+          :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
         >
           {{ prompt.text }}
         </li>
@@ -73,11 +85,11 @@
         class="slots-container"
       >
         <li
-          v-for="(label, index) in localizedInteractiveConfig.labels"
+          v-for="(label, index) in labels"
           :key="index"
-          class="prompt-label"
+          :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
         >
-          {{ label }}
+          {{ label.text }}
         </li>
       </ul>
 
@@ -150,6 +162,10 @@
     li.prompt-label {
       background-color: #acb9fa;
       border: 2px solid #acb9fa;
+    }
+
+    li.monospaced {
+      font-family: monospace;
     }
 
     li.dragging-slot {
