@@ -104,23 +104,28 @@
   .prompt-row {
     display: flex;
     max-height: 700px;
+
     .art-container {
       flex-grow: 1;
       padding: 15px;
       padding-top: 0px;
       text-align: center;
+
       img {
         max-height: 100%;
         max-width: 100%;
       }
     }
   }
+
   /deep/ .slot {
     height: 35px;
     border: 1px solid black;
+
     &.empty {
       border: 1px dashed grey;
     }
+
     ul {
       li {
         display: flex;
@@ -131,14 +136,17 @@
       }
     }
   }
+
   .answer-bank {
     width: 30%;
   }
+
   .answer-row {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+
     .slot {
       width: 25%;
     }
