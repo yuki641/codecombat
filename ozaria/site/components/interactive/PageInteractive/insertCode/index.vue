@@ -34,20 +34,25 @@
 
       codeLanguage: {
         type: String,
-        default: 'python'
+        required: true
       }
     },
 
     data () {
       const language = this.codeLanguage.toLowerCase()
-      if (language !== 'python' || language !== 'python') {
+      if (language !== 'python' && language !== 'javascript') {
+        // TODO handle_error_ozaria - this can crash with invalid input.
         throw new Error('Unexpected language type')
       }
 
-      // selectedAnswer starts with the `lineToReplace` line from SAMPLE_CODE.
-      // TODO handle_error_ozaria - this can crash with invalid input.
-      const startingLine = this.localizedInteractiveConfig.starterCode.trim().split('\n')[this.localizedInteractiveConfig.lineToReplace-1].trim()
+      const splitSampleCode = this.localizedInteractiveConfig
+        .starterCode
+        .trim()
+        .split('\n')
+        .map(line => line.trim())
+
       const defaultImage = toUriFilePath(this.interactive.defaultArtAsset)
+
       return {
         codemirrorReady: false,
 
@@ -58,33 +63,31 @@
           readOnly: 'nocursor'
         },
 
-        selectedAnswer: { id: -1, text: startingLine, triggerArt: defaultImage}
+        splitSampleCode,
+
+        selectedAnswer: {
+          id: -1,
+          text: undefined,
+          triggerArt: defaultImage
+        }
       }
     },
 
     computed: {
-      sampleCodeSplit () {
-
-        const splitSampleCode = this.localizedInteractiveConfig.starterCode
-          .trim()
-          .split('\n')
-          .map(line => line.trim())
-
-        return [
-          splitSampleCode.slice(0, this.localizedInteractiveConfig.lineToReplace-1).join('\n'),
-          splitSampleCode.slice(this.localizedInteractiveConfig.lineToReplace).join('\n')
-        ]
-      },
-
       code () {
-        const splitSampleCode = this.sampleCodeSplit
+        const arrayIndexToReplace = this.localizedInteractiveConfig.lineToReplace - 1
+        let finalCode = this.splitSampleCode
+        if (this.selectedAnswer.id !== -1) {
+          finalCode = finalCode.map((v, i) => {
+            if (i === arrayIndexToReplace) {
+              return this.selectedAnswer.text
+            }
 
-        let selectedAnswerLine = ''
-        if (this.selectedAnswer) {
-          selectedAnswerLine = this.selectedAnswer.text.trim()
+            return v
+          })
         }
 
-        return `${splitSampleCode[0]}\n${selectedAnswerLine}\n${splitSampleCode[1]}`.trim()
+        return finalCode.join('\n')
       },
 
       answerOptions () {
@@ -115,15 +118,23 @@
         this.updateHighlightedLine()
       },
 
+      onCodeMirrorUpdated () {
+        this.updateHighlightedLine()
+      },
+
       updateHighlightedLine () {
-        // FIXME: This method doesn't seem to work at all. Line style is not applied.
         if (!this.codemirrorReady) {
           return
         }
-        if (!this.selectedAnswer || this.selectedAnswer.id !== -1) {
-          this.codemirror.addLineClass(this.localizedInteractiveConfig.lineToReplace, 'background', 'highlight-line')
+
+        const lineToReplace = this.localizedInteractiveConfig.lineToReplace - 1
+
+        if (this.selectedAnswer.id !== -1) {
+          this.codemirror.addLineClass(lineToReplace, 'background', 'highlight-line-answered')
+          this.codemirror.removeLineClass(lineToReplace, 'background', 'highlight-line-prompt')
         } else {
-          this.codemirror.removeLineClass(this.localizedInteractiveConfig.lineToReplace, 'background', 'highlight-line')
+          this.codemirror.addLineClass(lineToReplace, 'background', 'highlight-line-prompt')
+          this.codemirror.removeLineClass(lineToReplace, 'background', 'highlight-line-answered')
         }
       }
     }
@@ -155,6 +166,7 @@
           :options="codemirrorOptions"
 
           @ready="onCodeMirrorReady"
+          @input="onCodeMirrorUpdated"
         />
       </div>
 
@@ -199,19 +211,29 @@
         }
       }
     }
+
     .answer {
       width: 30%;
       flex-grow: 1;
-      /deep/ .highlight-line {
-        background-color: #f8ff89;
+
+      /deep/ {
+        &.highlight-line-prompt {
+          background-color: #d8d8d8;
+        }
+
+        &.highlight-line-answered {
+          background-color: #cdd4f8;
+        }
       }
     }
+
     .art-container {
       flex-grow: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 15px;
+
       img {
         max-width: 100%;
         max-height: 100%;
