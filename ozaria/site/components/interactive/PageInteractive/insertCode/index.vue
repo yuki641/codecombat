@@ -1,13 +1,15 @@
 <script>
   import { codemirror } from 'vue-codemirror'
 
+  import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
+
   // TODO dynamically import these
   import 'codemirror/mode/javascript/javascript'
   import 'codemirror/mode/python/python'
   import 'codemirror/lib/codemirror.css'
 
-  import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
   const toUriFilePath = asset => encodeURI(`/file/${asset}`)
+
   export default {
     components: {
       codemirror,
@@ -31,12 +33,17 @@
       },
 
       codeLanguage: {
-        type: String
+        type: String,
+        default: 'python'
       }
     },
 
     data () {
-      const language = (this.codeLanguage || "").toLowerCase() === 'javascript' ? 'javascript' : 'python'
+      const language = this.codeLanguage.toLowerCase()
+      if (language !== 'python' || language !== 'python') {
+        throw new Error('Unexpected language type')
+      }
+
       // selectedAnswer starts with the `lineToReplace` line from SAMPLE_CODE.
       // TODO handle_error_ozaria - this can crash with invalid input.
       const startingLine = this.localizedInteractiveConfig.starterCode.trim().split('\n')[this.localizedInteractiveConfig.lineToReplace-1].trim()
