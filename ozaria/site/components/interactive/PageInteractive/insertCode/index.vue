@@ -51,7 +51,10 @@
         .split('\n')
         .map(line => line.trim())
 
-      const defaultImage = toUriFilePath(this.interactive.defaultArtAsset)
+      let defaultImage
+      if (this.interactive.defaultArtAsset) {
+        defaultImage = toUriFilePath(this.interactive.defaultArtAsset)
+      }
 
       return {
         codemirrorReady: false,
@@ -65,10 +68,12 @@
 
         splitSampleCode,
 
+        defaultImage,
+
         selectedAnswer: {
           id: -1,
           text: undefined,
-          triggerArt: defaultImage
+          triggerArt: undefined
         }
       }
     },
@@ -96,6 +101,10 @@
 
       codemirror () {
         return this.$refs.codeMirrorComponent.codemirror
+      },
+
+      artUrl () {
+        return this.selectedAnswer.triggerArt || this.defaultImage
       }
     },
 
@@ -107,9 +116,14 @@
 
     methods: {
       selectAnswer (answer) {
+        let triggerArt
+        if (answer.triggerArt) {
+          triggerArt = toUriFilePath(answer.triggerArt)
+        }
+
         this.selectedAnswer = {
           ...answer,
-          triggerArt: toUriFilePath(answer.triggerArt)
+          triggerArt
         }
       },
 
@@ -170,9 +184,12 @@
         />
       </div>
 
-      <div class="art-container">
+      <div
+        v-if="artUrl"
+        class="art-container"
+      >
         <img
-          :src="this.selectedAnswer.triggerArt"
+          :src="artUrl"
           alt="Art!"
         >
       </div>
