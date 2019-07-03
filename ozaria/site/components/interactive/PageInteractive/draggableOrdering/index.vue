@@ -1,12 +1,12 @@
 <script>
+  import VueDraggable from 'vuedraggable'
+
   import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
-  import OrderingSlots from './OrderingSlots'
-  import Sortable from 'sortablejs'
 
   export default {
     components: {
       'base-interactive-title': BaseInteractiveTitle,
-      'ordering-slots': OrderingSlots
+      'draggable': VueDraggable
     },
 
     props: {
@@ -26,7 +26,8 @@
       },
 
       codeLanguage: {
-        type: String
+        type: String,
+        required: true
       }
     },
 
@@ -38,20 +39,8 @@
           .map(({ elementId, text }) => ({
             id: elementId,
             text
-          })),
+          }))
       }
-    },
-
-    mounted () {
-      const draggableUl = this.$refs['draggable-col']
-      Sortable.create(draggableUl, {
-        swap: true,
-        onChange: e => {
-          const temp = this.promptSlots[e.oldIndex]
-          this.promptSlots[e.oldIndex] = this.promptSlots[e.newIndex]
-          this.promptSlots[e.newIndex] = temp
-        }
-      })
     }
   }
 </script>
@@ -63,17 +52,34 @@
     />
 
     <div class="prompt-row">
-      <div id='draggable-col' class='slots-container' key="draggable-col" ref="draggable-col">
-        <ul v-for="prompt in promptSlots" class="draggable-slot" :key="prompt.id">
-          <li>{{ prompt.text }}</li>
-        </ul>
-      </div>
+      <draggable
+        :list="promptSlots"
+        class="slots-container prompt-slots"
+        ghost-class="ghost-slot"
+        tag="ul"
+        :force-fallback="true"
+        fallback-class="dragging-slot"
+      >
+        <li
+          v-for="prompt in promptSlots"
+          :key="prompt.id"
+          class="prompt"
+        >
+          {{ prompt.text }}
+        </li>
+      </draggable>
 
-      <ordering-slots
-        class="ordering-column"
-
-        :labels="localizedInteractiveConfig.labels"
-      />
+      <ul
+        class="slots-container"
+      >
+        <li
+          v-for="(label, index) in localizedInteractiveConfig.labels"
+          :key="index"
+          class="prompt-label"
+        >
+          {{ label }}
+        </li>
+      </ul>
 
       <div class="art-container">
         <img
@@ -93,25 +99,6 @@
     flex-direction: column;
 
     background-color: #FFF;
-
-    /deep/ .ordering-column {
-      margin-right: 10px;
-
-      ul {
-        li {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          font-weight: bold;
-          font-size: 15px;
-        }
-      }
-
-      .empty {
-        border: 1px dashed grey;
-      }
-    }
   }
 
   .prompt-row {
@@ -129,8 +116,12 @@
     }
   }
 
-  .slots-container {
+  ul.slots-container {
     width: 25%;
+
+    padding: 0;
+
+    margin: 0;
     margin-right: 10px;
 
     display: flex;
@@ -138,6 +129,33 @@
 
     align-items: center;
     justify-content: space-evenly;
+
+    li {
+      width: 100%;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      font-size: 15px;
+
+      min-height: 50px;
+    }
+
+    li.prompt {
+      border: 2px solid #acb9fa;
+    }
+
+    li.prompt-label {
+      background-color: #acb9fa;
+      border: 2px solid #acb9fa;
+    }
+
+    li.dragging-slot {
+      // TODO this doesn't work because vue-draggable also uses transforms for positioing
+      transform: rotate(5deg);
+    }
 
     /deep/ .draggable-slot {
       height: 53px;
