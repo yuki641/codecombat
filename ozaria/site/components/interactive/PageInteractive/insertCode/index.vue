@@ -195,14 +195,22 @@
 
   ul.question {
     width: 30%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
     list-style: none;
+
     margin: 0;
     padding: 0;
+    padding-top: 20px;
+
+    background-color: #E1FBFA;
 
     li {
+      font-family: monospace; // TODO fallback font?
+
       margin: 0 0 10px;
       padding: 0;
       width: 70%;
@@ -212,10 +220,12 @@
       }
 
       button {
+        padding: 10px;
+
         width: 100%;
-        height: 20px;
-        background: transparent;
-        border: 1px solid black;
+
+        border: 2px solid #979797;
+        background-color: #FFF;
       }
     }
   }
