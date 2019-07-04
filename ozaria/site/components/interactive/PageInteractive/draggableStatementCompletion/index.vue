@@ -106,7 +106,6 @@
 
     methods: {
       async submitSolution () {
-        console.log(this.questionAnswered)
         if (!this.questionAnswered) {
           return
         }
@@ -128,7 +127,6 @@
           this.$emit('completed')
         } else {
           this.resetAnswer()
-          this.updateHighlightedLine()
         }
 
         this.showModal = false
