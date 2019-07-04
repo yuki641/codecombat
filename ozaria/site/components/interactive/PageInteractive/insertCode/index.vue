@@ -1,4 +1,4 @@
-<script>
+<script xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   import { codemirror } from 'vue-codemirror'
 
   import { putSession } from 'ozaria/site/api/interactive'
@@ -13,8 +13,6 @@
   import 'codemirror/mode/javascript/javascript'
   import 'codemirror/mode/python/python'
   import 'codemirror/lib/codemirror.css'
-
-  const DEFAULT_ID = '-1'
 
   export default {
     components: {
@@ -65,6 +63,7 @@
       }
 
       return {
+        showModal: false,
         codemirrorReady: false,
 
         codemirrorOptions: {
@@ -78,11 +77,7 @@
 
         defaultImage,
 
-        selectedAnswer: {
-          id: -1,
-          text: undefined,
-          triggerArt: undefined
-        }
+        selectedAnswer: {}
       }
     },
 
@@ -134,6 +129,10 @@
     },
 
     methods: {
+      resetAnswer () {
+        this.selectedAnswer = {}
+      },
+
       selectAnswer (answer) {
         let triggerArt
         if (answer.triggerArt) {
@@ -171,43 +170,46 @@
         }
       },
 
-      submitSolution () {
-        this.displayModal = true
-      },
-
-      async closeModal () {
-        if (this.solution.submittedSolution === DEFAULT_ID) {
+      async submitSolution () {
+        if (this.solution.submittedSolution === undefined) {
           return
         }
 
+        this.showModal = true
+
+        // TODO save through vuex and block progress until save is successful
         await putSession(this.interactive._id, {
           json: {
             codeLanguage: this.codeLanguage,
             submission: this.solution
           }
         })
+      },
+
+      closeModal () {
         if (this.solution.correct) {
           this.$emit('completed')
         } else {
-          // Reset component to base state
-          Object.assign(this.$data, this.$options.data.apply(this))
-          this.stateFromCompleteSession()
+          this.resetAnswer()
+          this.updateHighlightedLine()
         }
-        this.displayModal = false
+
+        this.showModal = false
       },
 
       stateFromCompleteSession () {
-        const correctSubmissionId = ((this.interactiveSession || {}).submissions || []).find(({ correct }) => correct)
-        if (!(correctSubmissionId || {}).submittedSolution) {
-          return
-        }
-
-        const answer = this.localizedInteractiveConfig.choices.find(({ choiceId }) => choiceId === correctSubmissionId.submittedSolution)
-        if (!answer) {
-          console.warn('Session answer id doesn\'t match given choices. Proceeding without setting session state.')
-          return
-        }
-        this.selectAnswer(answer)
+      //   TODO should answer be recovered or should use play as if they have never played?
+      //   const correctSubmissionId = ((this.interactiveSession || {}).submissions || []).find(({ correct }) => correct)
+      //   if (!(correctSubmissionId || {}).submittedSolution) {
+      //     return
+      //   }
+      //
+      //   const answer = this.localizedInteractiveConfig.choices.find(({ choiceId }) => choiceId === correctSubmissionId.submittedSolution)
+      //   if (!answer) {
+      //     console.warn('Session answer id doesn\'t match given choices. Proceeding without setting session state.')
+      //     return
+      //   }
+      //   this.selectAnswer(answer)
       }
     }
   }
@@ -251,15 +253,14 @@
       </div>
     </div>
 
-    <div v-if="displayModal">
-      <modal-interactive
-        @close="closeModal"
-      >
-        <template v-slot:body>
-          <h1>{{solution.correct ? "Did it!" : "Try Again!"}}</h1>
-        </template>
-      </modal-interactive>
-    </div>
+    <modal-interactive
+      v-if="showModal"
+      @close="closeModal"
+    >
+      <template v-slot:body>
+        <h1>{{ solution.correct ? "Did it!" : "Try Again!" }}</h1>
+      </template>
+    </modal-interactive>
   </base-interactive-layout>
 </template>
 
