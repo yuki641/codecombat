@@ -115,7 +115,7 @@
       },
 
       questionAnswered () {
-        return this.selectedAnswer.id !== undefined
+        return this.selectedAnswer.choiceId !== undefined
       },
 
       solution () {
