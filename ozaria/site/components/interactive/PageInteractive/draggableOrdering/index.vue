@@ -71,80 +71,50 @@
     :interactive="interactive"
     :art-url="artUrl"
   >
-    <draggable
-      :list="promptSlots"
-      class="slots-container prompt-slots"
-      ghost-class="ghost-slot"
-      tag="ul"
-      :force-fallback="true"
-      fallback-class="dragging-slot"
-    >
-      <li
-        v-for="prompt in promptSlots"
-        :key="prompt.id"
-        :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
+    <div class="draggable-ordering-content">
+      <draggable
+        :list="promptSlots"
+        class="slots-container prompt-slots"
+        ghost-class="ghost-slot"
+        tag="ul"
+        :force-fallback="true"
+        fallback-class="dragging-slot"
       >
-        {{ prompt.text }}
-      </li>
-    </draggable>
+        <li
+          v-for="prompt in promptSlots"
+          :key="prompt.id"
+          :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
+        >
+          {{ prompt.text }}
+        </li>
+      </draggable>
 
-    <ul
-      class="slots-container"
-    >
-      <li
-        v-for="(label, index) in labels"
-        :key="index"
-        :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
+      <ul
+        class="slots-container"
       >
-        {{ label.text }}
-      </li>
-    </ul>
+        <li
+          v-for="(label, index) in labels"
+          :key="index"
+          :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
+        >
+          {{ label.text }}
+        </li>
+      </ul>
+    </div>
   </base-interactive-layout>
 </template>
 
 <style lang="scss" scoped>
-  .draggable-ordering-container {
+  .draggable-ordering-content {
+    padding: 20px;
 
-    display: flex;
-    flex-direction: column;
-
-    background-color: #FFF;
-  }
-
-  .prompt-row {
     display: flex;
     flex-direction: row;
 
-    align-items: stretch;
+    align-items: center;
     justify-content: center;
 
-    .prompt {
-      flex-grow: 1;
-
-      padding: 20px;
-
-      display: flex;
-      flex-direction: row;
-
-      align-items: center;
-      justify-content: center;
-    }
-
-    .art-container {
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      background-color: #9b9b9b;
-
-      img {
-        width: 100%;
-        max-width: 1000px;
-
-        height: auto;
-      }
-    }
+    height: 100%;
   }
 
   ul.slots-container {
@@ -197,18 +167,5 @@
       // TODO this doesn't work because vue-draggable also uses transforms for positioing
       transform: rotate(5deg);
     }
-
-    /deep/ .draggable-slot {
-      height: 53px;
-      border: 1px solid black;
-
-      padding: 0;
-      list-style: none;
-      width: 100%;
-      li {
-        text-align: center;
-      }
-    }
   }
-
 </style>

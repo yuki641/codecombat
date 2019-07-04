@@ -61,14 +61,6 @@
 
     .interactive {
       flex-grow: 1;
-
-      padding: 20px;
-
-      display: flex;
-      flex-direction: row;
-
-      align-items: center;
-      justify-content: center;
     }
 
     .interactive-art {
