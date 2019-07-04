@@ -2,13 +2,12 @@
   import { codemirror } from 'vue-codemirror'
 
   import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
+  import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
 
   // TODO dynamically import these
   import 'codemirror/mode/javascript/javascript'
   import 'codemirror/mode/python/python'
   import 'codemirror/lib/codemirror.css'
-
-  const toUriFilePath = asset => encodeURI(`/file/${asset}`)
 
   export default {
     components: {
@@ -53,7 +52,7 @@
 
       let defaultImage
       if (this.interactive.defaultArtAsset) {
-        defaultImage = toUriFilePath(this.interactive.defaultArtAsset)
+        defaultImage = getOzariaAssetUrl(this.interactive.defaultArtAsset)
       }
 
       return {
@@ -118,7 +117,7 @@
       selectAnswer (answer) {
         let triggerArt
         if (answer.triggerArt) {
-          triggerArt = toUriFilePath(answer.triggerArt)
+          triggerArt = getOzariaAssetUrl(answer.triggerArt)
         }
 
         this.selectedAnswer = {

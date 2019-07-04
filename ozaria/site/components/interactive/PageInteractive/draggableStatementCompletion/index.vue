@@ -2,6 +2,8 @@
   import StatementSlot from '../common/BaseDraggableSlot'
   import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
 
+  import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
+
   export default {
     components: {
       'base-interactive-title': BaseInteractiveTitle,
@@ -47,6 +49,14 @@
     computed: {
       answerSlotLabels () {
         return (this.localizedInteractiveConfig || {}).labels || []
+      },
+
+      artUrl () {
+        if (this.interactive.defaultArtAsset) {
+          return getOzariaAssetUrl(this.interactive.defaultArtAsset)
+        }
+
+        return undefined
       }
     }
   }
@@ -72,8 +82,11 @@
         />
       </div>
 
-      <div class="art-container">
-        <img src="https://codecombat.com/images/pages/home/built_for_teachers1.png">
+      <div
+        v-if="artUrl"
+        class="art-container"
+      >
+        <img :src="artUrl">
       </div>
     </div>
 

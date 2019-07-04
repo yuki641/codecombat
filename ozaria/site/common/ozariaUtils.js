@@ -4,6 +4,10 @@
 
 export const defaultCodeLanguage = 'python'
 
+export function getOzariaAssetUrl (assetName) {
+  return `/file/${encodeURI(assetName)}`
+}
+
 /**
  * Calculates all the next levels for a list of levels in a classroom/campaign based on the level sessions.
  * @param {Object[]} sessions - The list of level session objects.

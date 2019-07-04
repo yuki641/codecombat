@@ -2,6 +2,7 @@
   import VueDraggable from 'vuedraggable'
 
   import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
+  import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
 
   export default {
     components: {
@@ -52,6 +53,14 @@
 
           return label
         })
+      },
+
+      artUrl () {
+        if (this.interactive.defaultArtAsset) {
+          return getOzariaAssetUrl(this.interactive.defaultArtAsset)
+        }
+
+        return undefined
       }
     }
   }
@@ -93,9 +102,12 @@
         </li>
       </ul>
 
-      <div class="art-container">
+      <div
+        v-if="artUrl"
+        class="art-container"
+      >
         <img
-          src="https://codecombat.com/images/pages/home/built_for_teachers1.png"
+          :src="artUrl"
           alt="Art!"
         >
       </div>
