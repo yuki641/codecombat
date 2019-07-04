@@ -330,7 +330,7 @@
       justify-content: flex-end;
 
       margin: 0px auto;
-      margin-bottom: 20px;
+      margin-top: auto;
     }
 
     /deep/ {

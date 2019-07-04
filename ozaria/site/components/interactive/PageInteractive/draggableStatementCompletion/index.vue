@@ -2,11 +2,19 @@
   import StatementSlot from '../common/BaseDraggableSlot'
   import BaseInteractiveLayout from '../common/BaseInteractiveLayout'
 
+  import { putSession } from 'ozaria/site/api/interactive'
   import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
+
+  import BaseButton from '../common/BaseButton'
+  import ModalInteractive from '../common/ModalInteractive.vue'
 
   export default {
     components: {
+      BaseButton,
+      ModalInteractive,
+
       BaseInteractiveLayout,
+
       'statement-slot': StatementSlot
     },
 
@@ -34,7 +42,10 @@
 
     data () {
       const interactiveConfig = this.localizedInteractiveConfig || {}
+
       return {
+        showModal: false,
+
         draggableGroup: Math.random().toString(),
 
         slotOptions: (interactiveConfig.elements || [])
@@ -58,6 +69,80 @@
         }
 
         return undefined
+      },
+
+      questionAnswered () {
+        for (let i = 0; i < this.answerSlots.length; i++) {
+          if (this.answerSlots[i] === undefined) {
+            return false
+          }
+        }
+
+        return true
+      },
+
+      solution () {
+        if (!this.questionAnswered) {
+          return undefined
+        }
+
+        return this.answerSlots.map((s) => s.choiceId)
+      },
+
+      solutionCorrect () {
+        if (!this.questionAnswered) {
+          return false
+        }
+
+        for (let i = 0; i < this.solution.length; i++) {
+          if (this.solution[i] !== this.localizedInteractiveConfig.solution[i]) {
+            return false
+          }
+        }
+
+        return true
+      }
+    },
+
+    methods: {
+      async submitSolution () {
+        console.log(this.questionAnswered)
+        if (!this.questionAnswered) {
+          return
+        }
+
+        this.showModal = true
+
+        // TODO save through vuex and block progress until save is successful
+        // TODO fix submission format
+        await putSession(this.interactive._id, {
+          json: {
+            codeLanguage: this.codeLanguage,
+            submission: this.solution
+          }
+        })
+      },
+
+      closeModal () {
+        if (this.solution.correct) {
+          this.$emit('completed')
+        } else {
+          this.resetAnswer()
+          this.updateHighlightedLine()
+        }
+
+        this.showModal = false
+      },
+
+      resetAnswer () {
+        this.answerSlots = Array(3).fill(undefined)
+
+        // TODO consolidate with initial state setting
+        this.slotOptions = (this.localizedInteractiveConfig.elements || [])
+          .map(({ elementId, text }) => ({
+            id: elementId,
+            text
+          }))
       }
     }
   }
@@ -95,13 +180,33 @@
           :label-text="(answerSlotLabels[i] || {}).text || ''"
         />
       </div>
+
+      <base-button
+        class="submit"
+        :on-click="submitSolution"
+      >
+        {{ $t('common.submit') }}
+      </base-button>
     </div>
+
+    <modal-interactive
+      v-if="showModal"
+      @close="closeModal"
+    >
+      <template v-slot:body>
+        <h1>{{ solutionCorrect ? "Did it!" : "Try Again!" }}</h1>
+      </template>
+    </modal-interactive>
   </base-interactive-layout>
 </template>
 
 <style lang="scss" scoped>
   .statement-completion-content {
     padding: 25px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
   }
 
   .slot-row {
@@ -115,6 +220,13 @@
     .slot {
       width: 25%;
     }
+  }
+
+  .submit {
+    justify-content: flex-end;
+
+    margin: 0px auto;
+    margin-top: auto;
   }
 
   /deep/ .slot {
