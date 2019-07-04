@@ -1,7 +1,7 @@
 <script>
   import { codemirror } from 'vue-codemirror'
 
-  import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
+  import BaseInteractiveLayout from '../common/BaseInteractiveLayout'
   import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
 
   // TODO dynamically import these
@@ -12,7 +12,7 @@
   export default {
     components: {
       codemirror,
-      'base-interactive-title': BaseInteractiveTitle
+      BaseInteractiveLayout
     },
 
     props: {
@@ -155,12 +155,11 @@
 </script>
 
 <template>
-<div class="insert-code-container">
-    <base-interactive-title
-      :interactive="interactive"
-    />
-
-    <div class="question-container">
+  <base-interactive-layout
+    :interactive="interactive"
+    :art-url="artUrl"
+  >
+    <div class="insert-code-content">
       <ul class="question">
         <li
           v-for="answerOption in answerOptions"
@@ -182,77 +181,58 @@
           @input="onCodeMirrorUpdated"
         />
       </div>
-
-      <div
-        v-if="artUrl"
-        class="art-container"
-      >
-        <img
-          :src="artUrl"
-          alt="Art!"
-        >
-      </div>
     </div>
-  </div>
+  </base-interactive-layout>
 </template>
 
 <style scoped lang="scss">
-  .insert-code-container {
-    display: flex;
-    flex-direction: column;
-  }
-  .insert-code-container .question-container {
+  .insert-code-content {
     display: flex;
     flex-direction: row;
-    ul.question {
-      width: 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      list-style: none;
-      margin: 0;
+
+    height: 100%;
+  }
+
+  ul.question {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0 0 10px;
       padding: 0;
-      li {
-        margin: 0 0 10px;
-        padding: 0;
-        width: 70%;
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-        button {
-          width: 100%;
-          height: 20px;
-          background: transparent;
-          border: 1px solid black;
-        }
+      width: 70%;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      button {
+        width: 100%;
+        height: 20px;
+        background: transparent;
+        border: 1px solid black;
       }
     }
+  }
 
-    .answer {
-      width: 30%;
-      flex-grow: 1;
+  .answer {
+    width: 30%;
+    flex-grow: 1;
 
-      /deep/ {
-        &.highlight-line-prompt {
-          background-color: #d8d8d8;
-        }
+    height: 100%;
 
-        &.highlight-line-answered {
-          background-color: #cdd4f8;
-        }
+    /deep/ {
+      &.highlight-line-prompt {
+        background-color: #d8d8d8;
       }
-    }
 
-    .art-container {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-
-      img {
-        max-width: 100%;
-        max-height: 100%;
+      &.highlight-line-answered {
+        background-color: #cdd4f8;
       }
     }
   }
