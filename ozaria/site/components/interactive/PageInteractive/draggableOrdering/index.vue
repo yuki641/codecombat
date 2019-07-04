@@ -73,34 +73,36 @@
     />
 
     <div class="prompt-row">
-      <draggable
-        :list="promptSlots"
-        class="slots-container prompt-slots"
-        ghost-class="ghost-slot"
-        tag="ul"
-        :force-fallback="true"
-        fallback-class="dragging-slot"
-      >
-        <li
-          v-for="prompt in promptSlots"
-          :key="prompt.id"
-          :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
+      <div class="prompt">
+        <draggable
+         :list="promptSlots"
+         class="slots-container prompt-slots"
+         ghost-class="ghost-slot"
+         tag="ul"
+         :force-fallback="true"
+         fallback-class="dragging-slot"
         >
-          {{ prompt.text }}
-        </li>
-      </draggable>
+          <li
+            v-for="prompt in promptSlots"
+            :key="prompt.id"
+            :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
+          >
+            {{ prompt.text }}
+          </li>
+        </draggable>
 
-      <ul
-        class="slots-container"
-      >
-        <li
-          v-for="(label, index) in labels"
-          :key="index"
-          :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
+        <ul
+          class="slots-container"
         >
-          {{ label.text }}
-        </li>
-      </ul>
+          <li
+            v-for="(label, index) in labels"
+            :key="index"
+            :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
+          >
+            {{ label.text }}
+          </li>
+        </ul>
+      </div>
 
       <div
         v-if="artUrl"
@@ -125,27 +127,46 @@
   }
 
   .prompt-row {
-    padding: 20px;
-
     display: flex;
     flex-direction: row;
 
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 
-    .art-container {
+    .prompt {
       flex-grow: 1;
 
-      padding: 0 15px 15px;
+      padding: 20px;
+
+      display: flex;
+      flex-direction: row;
+
+      align-items: center;
+      justify-content: center;
+    }
+
+    .art-container {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background-color: #9b9b9b;
 
       img {
         width: 100%;
+        max-width: 1000px;
+
+        height: auto;
       }
     }
   }
 
   ul.slots-container {
-    width: 25%;
+    height: 100%;
+    width: 50%;
+
+    max-width: 500px;
 
     padding: 0;
 

@@ -26,7 +26,6 @@
 <style scoped>
   .title-container {
     padding: 30px;
-    margin-bottom: 20px;
 
     width: 100%;
 
