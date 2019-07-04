@@ -1,25 +1,21 @@
 <script>
-export default {
-  props: {
-    text: {
-      type: String,
-      required: true
-    },
-    onClick: {
-      type: Function,
-      default: () => {}
+  export default {
+    props: {
+      onClick: {
+        type: Function,
+        default: () => {}
+      }
     }
   }
-}
 </script>
 
 <template>
   <button
     class='ozaria-btn'
 
-    v-on:click="onClick"
+    @click="onClick"
   >
-    {{ text }}
+    <slot />
   </button>
 </template>
 
@@ -29,7 +25,6 @@ export default {
     width: 182px
     color: #F7F9F9
     background: #1FBAB4
-    font-family: "Open Sans"
     font-size: 18px
     font-weight: bold
     letter-spacing: 0.71px

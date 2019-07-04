@@ -236,26 +236,29 @@
           :value="code"
           :options="codemirrorOptions"
 
+          class="code"
+
           @ready="onCodeMirrorReady"
           @input="onCodeMirrorUpdated"
         />
+
         <base-button
-          :onClick="submitSolution"
-          text="Submit"
+          class="submit"
+          :on-click="submitSolution"
         >
+          {{ $t('common.submit') }}
         </base-button>
       </div>
     </div>
 
     <div v-if="displayModal">
-        <modal-interactive
-                @close="closeModal"
-        >
-            <template v-slot:body>
-                <h1>{{solution.correct ? "Did it!" : "Try Again!"}}</h1>
-            </template>
-
-        </modal-interactive>
+      <modal-interactive
+        @close="closeModal"
+      >
+        <template v-slot:body>
+          <h1>{{solution.correct ? "Did it!" : "Try Again!"}}</h1>
+        </template>
+      </modal-interactive>
     </div>
   </base-interactive-layout>
 </template>
@@ -309,7 +312,21 @@
     width: 30%;
     flex-grow: 1;
 
+    display: flex;
+    flex-direction: column;
+
     height: 100%;
+
+    .code {
+      flex-grow: 1;
+    }
+
+    .submit {
+      justify-content: flex-end;
+
+      margin: 0px auto;
+      margin-bottom: 20px;
+    }
 
     /deep/ {
       &.highlight-line-prompt {
