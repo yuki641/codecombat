@@ -117,7 +117,6 @@
 
 <style lang="scss" scoped>
   .draggable-ordering-container {
-    padding: 75px;
 
     display: flex;
     flex-direction: column;
@@ -126,8 +125,13 @@
   }
 
   .prompt-row {
+    padding: 20px;
+
     display: flex;
     flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
 
     .art-container {
       flex-grow: 1;
@@ -155,6 +159,8 @@
     justify-content: space-evenly;
 
     li {
+      margin-bottom: 15px;
+
       width: 100%;
 
       display: flex;
@@ -162,6 +168,7 @@
       justify-content: center;
       align-items: center;
 
+      text-align: center;
       font-size: 15px;
 
       min-height: 50px;
