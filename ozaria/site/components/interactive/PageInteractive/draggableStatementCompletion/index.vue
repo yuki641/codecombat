@@ -1,12 +1,12 @@
 <script>
   import StatementSlot from '../common/BaseDraggableSlot'
-  import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
+  import BaseInteractiveLayout from '../common/BaseInteractiveLayout'
 
   import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
 
   export default {
     components: {
-      'base-interactive-title': BaseInteractiveTitle,
+      BaseInteractiveLayout,
       'statement-slot': StatementSlot
     },
 
@@ -27,7 +27,8 @@
       },
 
       codeLanguage: {
-        type: String
+        type: String,
+        required: true
       }
     },
 
@@ -63,13 +64,12 @@
 </script>
 
 <template>
-  <div class="draggable-statement-completion">
-    <base-interactive-title
-      :interactive="interactive"
-    />
-
-    <div class="prompt-row">
-      <div class="answer-bank">
+  <base-interactive-layout
+    :interactive="interactive"
+    :art-url="artUrl"
+  >
+    <div class="statement-completion-content">
+      <div class="slot-row">
         <statement-slot
           v-for="(slot, i) of slotOptions"
           :key="i"
@@ -82,52 +82,38 @@
         />
       </div>
 
-      <div
-        v-if="artUrl"
-        class="art-container"
-      >
-        <img :src="artUrl">
+      <div class="slot-row">
+        <statement-slot
+          v-for="(answerSlot, i) of answerSlots"
+          :key="i"
+
+          v-model="answerSlots[i]"
+
+          :draggable-group="draggableGroup"
+
+          class="slot"
+          :label-text="(answerSlotLabels[i] || {}).text || ''"
+        />
       </div>
     </div>
-
-    <div class="answer-row">
-      <statement-slot
-        v-for="(answerSlot, i) of answerSlots"
-        :key="i"
-
-        v-model="answerSlots[i]"
-
-        :draggable-group="draggableGroup"
-
-        class="slot"
-        :label-text="(answerSlotLabels[i] || {}).text || ''"
-      />
-    </div>
-  </div>
+  </base-interactive-layout>
 </template>
 
 <style lang="scss" scoped>
-  .draggable-statement-completion {
-    padding: 75px;
-
-    display: flex;
-    flex-direction: column;
+  .statement-completion-content {
+    padding: 25px;
   }
 
-  .prompt-row {
+  .slot-row {
     display: flex;
-    max-height: 700px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 
-    .art-container {
-      flex-grow: 1;
-      padding: 15px;
-      padding-top: 0px;
-      text-align: center;
+    margin-bottom: 20px;
 
-      img {
-        max-height: 100%;
-        max-width: 100%;
-      }
+    .slot {
+      width: 25%;
     }
   }
 
@@ -150,18 +136,4 @@
     }
   }
 
-  .answer-bank {
-    width: 30%;
-  }
-
-  .answer-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-
-    .slot {
-      width: 25%;
-    }
-  }
 </style>
