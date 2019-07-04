@@ -89,7 +89,7 @@
       code () {
         const arrayIndexToReplace = this.localizedInteractiveConfig.lineToReplace - 1
         let finalCode = this.splitSampleCode
-        if (this.selectedAnswer.id !== -1) {
+        if (this.questionAnswered) {
           finalCode = finalCode.map((v, i) => {
             if (i === arrayIndexToReplace) {
               return this.selectedAnswer.text
@@ -112,6 +112,10 @@
 
       artUrl () {
         return this.selectedAnswer.triggerArt || this.defaultImage
+      },
+
+      questionAnswered () {
+        return this.selectedAnswer.id !== undefined
       },
 
       solution () {
@@ -161,7 +165,7 @@
 
         const lineToReplace = this.localizedInteractiveConfig.lineToReplace - 1
 
-        if (this.selectedAnswer.id !== -1) {
+        if (this.questionAnswered) {
           this.codemirror.addLineClass(lineToReplace, 'background', 'highlight-line-answered')
           this.codemirror.removeLineClass(lineToReplace, 'background', 'highlight-line-prompt')
         } else {
@@ -171,7 +175,7 @@
       },
 
       async submitSolution () {
-        if (this.solution.submittedSolution === undefined) {
+        if (!this.questionAnswered) {
           return
         }
 
