@@ -1,12 +1,12 @@
 <script>
   import VueDraggable from 'vuedraggable'
 
-  import BaseInteractiveTitle from '../common/BaseInteractiveTitle'
+  import BaseInteractiveLayout from '../common/BaseInteractiveLayout'
   import { getOzariaAssetUrl } from '../../../../common/ozariaUtils'
 
   export default {
     components: {
-      'base-interactive-title': BaseInteractiveTitle,
+      BaseInteractiveLayout,
       'draggable': VueDraggable
     },
 
@@ -67,54 +67,39 @@
 </script>
 
 <template>
-  <div class="draggable-ordering-container">
-    <base-interactive-title
-      :interactive="interactive"
-    />
-
-    <div class="prompt-row">
-      <div class="prompt">
-        <draggable
-         :list="promptSlots"
-         class="slots-container prompt-slots"
-         ghost-class="ghost-slot"
-         tag="ul"
-         :force-fallback="true"
-         fallback-class="dragging-slot"
-        >
-          <li
-            v-for="prompt in promptSlots"
-            :key="prompt.id"
-            :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
-          >
-            {{ prompt.text }}
-          </li>
-        </draggable>
-
-        <ul
-          class="slots-container"
-        >
-          <li
-            v-for="(label, index) in labels"
-            :key="index"
-            :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
-          >
-            {{ label.text }}
-          </li>
-        </ul>
-      </div>
-
-      <div
-        v-if="artUrl"
-        class="art-container"
+  <base-interactive-layout
+    :interactive="interactive"
+    :art-url="artUrl"
+  >
+    <draggable
+      :list="promptSlots"
+      class="slots-container prompt-slots"
+      ghost-class="ghost-slot"
+      tag="ul"
+      :force-fallback="true"
+      fallback-class="dragging-slot"
+    >
+      <li
+        v-for="prompt in promptSlots"
+        :key="prompt.id"
+        :class="{ 'prompt': true, 'monospaced': (prompt.textStyleCode === true) }"
       >
-        <img
-          :src="artUrl"
-          alt="Art!"
-        >
-      </div>
-    </div>
-  </div>
+        {{ prompt.text }}
+      </li>
+    </draggable>
+
+    <ul
+      class="slots-container"
+    >
+      <li
+        v-for="(label, index) in labels"
+        :key="index"
+        :class="{ 'prompt-label': true, 'monospaced': (label.textStyleCode === true) }"
+      >
+        {{ label.text }}
+      </li>
+    </ul>
+  </base-interactive-layout>
 </template>
 
 <style lang="scss" scoped>
