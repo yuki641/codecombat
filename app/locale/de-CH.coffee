@@ -1,7 +1,7 @@
 module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "German (Switzerland)", translation:
 
 #  new_home:
-#    title: "CodeCombat - Coding games to learn Python and JavaScript"
+#    title: "CodeCombat - Codier Spiili zum lerne vo Python und JavaScript"
 #    meta_description: "Learn typed code through a programming game. Learn Python, JavaScript, and HTML as you solve puzzles and learn to make your own coding games and websites."
 #    built_for_teachers_title: "A Coding Game Built with Teachers in Mind"
 #    built_for_teachers_blurb: "Teaching kids to code can often feel overwhelming. CodeCombat helps all educators teach students how to code in either JavaScript or Python, two of the most popular programming languages. With a comprehensive curriculum that includes six computer science units and reinforces learning through project-based game development and web development units, kids will progress on a journey from basic syntax to recursion!"
@@ -163,7 +163,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     blog: "Blog"
     forum: "Forum"
     account: "Account"
-#    my_account: "My Account"
+#    my_account: "Min Account"
     profile: "Profil"
     home: "Home"
     contribute: "Mitmache"
@@ -278,10 +278,10 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    return: "return"
 #    then: "then"
 #    do: "do"
-#    end: "end"
+    end: "ändi"
 #    function: "function"
 #    def: "define"
-#    var: "variable"
+    var: "Variable"
 #    self: "self"
 #    hero: "hero"
 #    this: "this"
@@ -302,8 +302,8 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    "<=": "is less than or equal"
 #    "*": "multiplied by"
 #    "/": "divided by"
-#    "+": "plus"
-#    "-": "minus"
+    "+": "plus"
+    "-": "minus"
 #    "+=": "add and assign"
 #    "-=": "subtract and assign"
 #    True: "True"
@@ -325,7 +325,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 
   login:
     sign_up: "Account erstelle"
-#    email_or_username: "Email or username"
+    email_or_username: "Email oder Benutzername"
     log_in: "Ilogge"
     logging_in: "Am Ilogge"
     log_out: "Uslogge"
@@ -346,7 +346,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     creating: "Account wird erstellt..."
     sign_up: "Registriere"
     log_in: "Mit Passwort ilogge"
-#    login: "Login"
+    login: "Login"
     required: "Du muesch dich zersch ilogge befor du det dure chasch"
     login_switch: "Häsch scho es Account?"
 #    optional: "optional"
@@ -431,7 +431,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     books: "Büecher"
 
   common:
-#    default_title: "CodeCombat - Coding games to learn Python and JavaScript"
+    default_title: "CodeCombat - Codier Spiil zum Python und JavaScript lerne"
 #    default_meta_description: "Learn typed code through a programming game. Learn Python, JavaScript, and HTML as you solve puzzles and learn to make your own coding games and websites."
     back: "Zrugg" # When used as an action verb, like "Navigate backward"
 #    coming_soon: "Coming soon!"
@@ -519,7 +519,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    first_name: "First Name"
 #    last_name: "Last Name"
 #    last_initial: "Last Initial"
-#    username: "Username"
+#    username: "Benutzername"
 #    contact_us: "Contact Us"
 #    close_window: "Close Window"
 #    learn_more: "Learn More"
@@ -530,7 +530,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
   units:
     second: "Sekunde"
     seconds: "Sekunde"
-#    sec: "sec"
+    sec: "sek"
     minute: "Minute"
     minutes: "Minute"
     hour: "Stund"
