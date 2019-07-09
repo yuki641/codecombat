@@ -1,7 +1,7 @@
 module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "German (Switzerland)", translation:
 
 #  new_home:
-#    title: "CodeCombat - Coding games to learn Python and JavaScript"
+    title: "CodeCombat - Codier Spiil zum Python und JavaScript lerne"
 #    meta_description: "Learn typed code through a programming game. Learn Python, JavaScript, and HTML as you solve puzzles and learn to make your own coding games and websites."
 #    built_for_teachers_title: "A Coding Game Built with Teachers in Mind"
 #    built_for_teachers_blurb: "Teaching kids to code can often feel overwhelming. CodeCombat helps all educators teach students how to code in either JavaScript or Python, two of the most popular programming languages. With a comprehensive curriculum that includes six computer science units and reinforces learning through project-based game development and web development units, kids will progress on a journey from basic syntax to recursion!"
@@ -211,7 +211,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     subscribe_as_diplomat: "Abonnier als en Diplomat"
 
   play:
-#    title: "Play CodeCombat Levels - Learn Python, JavaScript, and HTML"
+    title: "Spiil CodeCombat Levels - Lern Python, JavaScript, und HTML"
 #    meta_description: "Learn programming with a coding game for beginners. Learn Python or JavaScript as you solve mazes, make your own games, and level up. Challenge your friends in multiplayer arena levels!"
 #    level_title: "__level__ - Learn to Code in Python, JavaScript, HTML"
 #    video_title: "__video__ | Video Level"
@@ -246,8 +246,8 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     change_hero: "Held wächsle" # Go back from choose inventory to choose hero
 #    change_hero_or_language: "Change Hero or Language"
     buy_gems: "Edelstei chaufä"
-#    subscribers_only: "Subscribers Only!"
-#    subscribe_unlock: "Subscribe to Unlock!"
+    subscribers_only: "Numme Abonännte!"
+    subscribe_unlock: "Abonnier zum Freischalte!"
 #    subscriber_heroes: "Subscribe today to immediately unlock Amara, Hushbaum, and Hattori!"
 #    subscriber_gems: "Subscribe today to purchase this hero with gems!"
     anonymous: "Anonyme Spieler"
@@ -258,11 +258,11 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     adjust_volume: "Luutsterchi apasse"
     campaign_multiplayer: "Multiplayer Arenas"
     campaign_multiplayer_description: "... i dene du Chopf a Chopf geg anderi Spieler spielsch."
-#    brain_pop_done: "You’ve defeated the Ogres with code! You win!"
+    brain_pop_done: "Du hesch d'Oger mit dim Code besiegt! Du hesch gwunne!"
 #    brain_pop_challenge: "Challenge yourself to play again using a different programming language!"
 #    replay: "Replay"
 #    back_to_classroom: "Back to Classroom"
-#    teacher_button: "For Teachers"
+    teacher_button: "Für Lehrer"
 #    get_more_codecombat: "Get More CodeCombat"
 
 #  code:
@@ -272,8 +272,8 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    while: "while"
 #    loop: "loop"
 #    for: "for"
-#    break: "break"
-#    continue: "continue"
+    break: "pause"
+    continue: "wiiter"
 #    pass: "pass"
 #    return: "return"
 #    then: "then"
@@ -308,7 +308,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    "-=": "subtract and assign"
 #    True: "True"
 #    true: "true"
-#    False: "False"
+    False: "Falsch"
 #    false: "false"
 #    undefined: "undefined"
 #    null: "null"
@@ -325,7 +325,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 
   login:
     sign_up: "Account erstelle"
-#    email_or_username: "Email or username"
+    email_or_username: "Email oder Benutzername"
     log_in: "Ilogge"
     logging_in: "Am Ilogge"
     log_out: "Uslogge"
@@ -346,10 +346,10 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     creating: "Account wird erstellt..."
     sign_up: "Registriere"
     log_in: "Mit Passwort ilogge"
-#    login: "Login"
+    login: "Iiloge"
     required: "Du muesch dich zersch ilogge befor du det dure chasch"
     login_switch: "Häsch scho es Account?"
-#    optional: "optional"
+    optional: "optional"
 #    connected_gplus_header: "You've successfully connected with Google+!"
 #    connected_gplus_p: "Finish signing up so you can log in with your Google+ account."
 #    connected_facebook_header: "You've successfully connected with Facebook!"
