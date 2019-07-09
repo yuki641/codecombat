@@ -1,7 +1,7 @@
 module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "German (Switzerland)", translation:
 
 #  new_home:
-#    title: "CodeCombat - Coding games to learn Python and JavaScript"
+#    title: "CodeCombat - Coding Spiil zum Python und JavaScript lerne."
 #    meta_description: "Learn typed code through a programming game. Learn Python, JavaScript, and HTML as you solve puzzles and learn to make your own coding games and websites."
 #    built_for_teachers_title: "A Coding Game Built with Teachers in Mind"
 #    built_for_teachers_blurb: "Teaching kids to code can often feel overwhelming. CodeCombat helps all educators teach students how to code in either JavaScript or Python, two of the most popular programming languages. With a comprehensive curriculum that includes six computer science units and reinforces learning through project-based game development and web development units, kids will progress on a journey from basic syntax to recursion!"
@@ -88,7 +88,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    try_the_game: "Try the game"
 #    classroom_edition: "Classroom Edition:"
 #    learn_to_code: "Learn to code:"
-#    play_now: "Play Now"
+#    play_now: "Spiil jezt"
 #    im_an_educator: "I'm an Educator"
 #    im_a_teacher: "I'm a Teacher"
 #    im_a_student: "I'm a Student"
@@ -211,7 +211,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     subscribe_as_diplomat: "Abonnier als en Diplomat"
 
   play:
-#    title: "Play CodeCombat Levels - Learn Python, JavaScript, and HTML"
+#    title: "Spiil CodeCombat Levels - Lern Python, JavaScript, und HTML"
 #    meta_description: "Learn programming with a coding game for beginners. Learn Python or JavaScript as you solve mazes, make your own games, and level up. Challenge your friends in multiplayer arena levels!"
 #    level_title: "__level__ - Learn to Code in Python, JavaScript, HTML"
 #    video_title: "__video__ | Video Level"
@@ -262,7 +262,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    brain_pop_challenge: "Challenge yourself to play again using a different programming language!"
 #    replay: "Replay"
 #    back_to_classroom: "Back to Classroom"
-#    teacher_button: "For Teachers"
+#    teacher_button: "Für Lehrer"
 #    get_more_codecombat: "Get More CodeCombat"
 
 #  code:
@@ -273,17 +273,17 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
 #    loop: "loop"
 #    for: "for"
 #    break: "break"
-#    continue: "continue"
+#    continue: "fortsetzte"
 #    pass: "pass"
-#    return: "return"
+#    return: "zrugg"
 #    then: "then"
 #    do: "do"
-#    end: "end"
+#    end: "ändi"
 #    function: "function"
 #    def: "define"
 #    var: "variable"
 #    self: "self"
-#    hero: "hero"
+#    hero: "held"
 #    this: "this"
 #    or: "or"
 #    "||": "or"
@@ -333,7 +333,7 @@ module.exports = nativeDescription: "Dütsch (Schwiiz)", englishDescription: "Ge
     finishing: "Fertigstelle"
     sign_in_with_facebook: "Mit Facebook aamelde"
     sign_in_with_gplus: "Mit G+ aamelde"
-    signup_switch: "Willsch es Account erstelle?"
+    signup_switch: "Willsch e Account erstelle?"
 
   signup:
 #    complete_subscription: "Complete Subscription"
